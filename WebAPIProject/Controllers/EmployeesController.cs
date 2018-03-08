@@ -13,6 +13,14 @@ namespace WebAPIProject.Controllers
     {
         private AppDbContext db = new AppDbContext();
 
+        //Employees/ActiveEmployees
+        public ActionResult ActiveEmployees()
+        {
+            List<Employee> employees = db.Employees.Where(e => e.Active).ToList();
+            return Json(employees, JsonRequestBehavior.AllowGet);
+        }
+
+
         public ActionResult List()
         {
             return Json(db.Employees.ToList(), JsonRequestBehavior.AllowGet);
