@@ -50,7 +50,15 @@ namespace WebAPIProject.Controllers
             return Json(new JsonMessage("Success", "Employee was created the new id is:"), JsonRequestBehavior.AllowGet); //add employee id return data
 
 
-        }
+           
+
+
+            }
+
+
+
+
+
         public ActionResult Remove([FromBody] Employee employee)
         {
             Employee employee2 = db.Employees.Find(employee.Id);
@@ -65,5 +73,22 @@ namespace WebAPIProject.Controllers
             }
             return Json(new JsonMessage("Success", "Employee was deleted successfully"), JsonRequestBehavior.AllowGet);
         }
+            //Employees/Change
+            public ActionResult Change([FromBody] Employee employee)
+            {
+                Employee employee2 = db.Employees.Find(employee.Id);
+                employee2.Name = employee.Name;
+                employee2.Salary = employee.Salary;
+                employee2.Active = employee.Active;
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return Json(new JsonMessage("Failure", ex.Message), JsonRequestBehavior.AllowGet);
+                }
+                return Json(new JsonMessage("Success", "Employee was changed"), JsonRequestBehavior.AllowGet);
+            }
         }
 }
