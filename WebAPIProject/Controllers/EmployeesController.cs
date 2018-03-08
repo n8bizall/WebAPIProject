@@ -76,6 +76,10 @@ namespace WebAPIProject.Controllers
             //Employees/Change
             public ActionResult Change([FromBody] Employee employee)
             {
+            if(employee == null)
+            {
+                return Json(new JsonMessage("Failure", "The record has already been deleted,not found"), JsonRequestBehavior.AllowGet);
+            }
                 Employee employee2 = db.Employees.Find(employee.Id);
                 employee2.Name = employee.Name;
                 employee2.Salary = employee.Salary;
